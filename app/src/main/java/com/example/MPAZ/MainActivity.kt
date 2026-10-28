@@ -9,18 +9,19 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import com.example.MPAZ.Data.ReservaRepository
-import com.example.MPAZ.ui.theme.ColegioTheme
-import com.example.MPAZ.ViewModel.LoginViewModel
+import com.example.MPAZ.ui.theme.EscuelaEscritoraMarcelaPazTheme
+import com.example.colegio.data.ReservaRepository
+import com.example.colegio.viewmodel.LoginViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val vm = LoginViewModel(ReservaRepository(applicationContext))
         setContent {
-            ColegioTheme {
+            EscuelaEscritoraMarcelaPazTheme {
                 PantallaLogin(vm, onLogin = { rol ->
                     if (rol == "ADMIN") startActivity(Intent(this, AdminActivity::class.java))
                     else startActivity(Intent(this, UsuarioActivity::class.java))
@@ -33,9 +34,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun PantallaLogin(vm: LoginViewModel, onLogin: (String) -> Unit) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(24.dp),
+        modifier = Modifier.fillMaxSize().padding(24.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -44,20 +43,44 @@ fun PantallaLogin(vm: LoginViewModel, onLogin: (String) -> Unit) {
         Text(if (vm.isRegister) "Registro" else "Iniciar Sesión", style = MaterialTheme.typography.titleMedium)
 
         Spacer(Modifier.height(32.dp))
+
         OutlinedTextField(
             value = vm.correo,
             onValueChange = { vm.onCorreo(it) },
             label = { Text("Correo") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedTextColor = Color.White,          // Letra blanca al escribir
+                unfocusedTextColor = Color.White,        // Letra blanca
+                focusedContainerColor = Color(0xFF1E293B),   // Fondo gris oscuro dentro de la caja
+                unfocusedContainerColor = Color(0xFF1E293B), // Fondo gris oscuro dentro de la caja
+                focusedLabelColor = Color(0xFF60A5FA),      // Etiqueta azul al hacer clic
+                unfocusedLabelColor = Color(0xFF94A3B8),    // Etiqueta gris claro
+                focusedBorderColor = Color(0xFF60A5FA),     // Borde azul
+                unfocusedBorderColor = Color(0xFF475569)    // Borde gris
+            )
         )
+
         Spacer(Modifier.height(16.dp))
+
         OutlinedTextField(
             value = vm.contrasena,
             onValueChange = { vm.onPass(it) },
             label = { Text("Contraseña") },
             visualTransformation = PasswordVisualTransformation(),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedTextColor = Color.White,          // Letra blanca
+                unfocusedTextColor = Color.White,        // Letra blanca
+                focusedContainerColor = Color(0xFF1E293B),   // Fondo gris oscuro
+                unfocusedContainerColor = Color(0xFF1E293B), // Fondo gris oscuro
+                focusedLabelColor = Color(0xFF60A5FA),      // Etiqueta azul
+                unfocusedLabelColor = Color(0xFF94A3B8),    // Etiqueta gris claro
+                focusedBorderColor = Color(0xFF60A5FA),     // Borde azul
+                unfocusedBorderColor = Color(0xFF475569)    // Borde gris
+            )
         )
+
 
         if (vm.isRegister) {
             Spacer(Modifier.height(16.dp))
@@ -80,9 +103,7 @@ fun PantallaLogin(vm: LoginViewModel, onLogin: (String) -> Unit) {
             onClick = {
                 if (vm.isRegister) vm.registrar() else vm.login()?.let { onLogin(it.rol) }
             },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp)
+            modifier = Modifier.fillMaxWidth().height(56.dp)
         ) {
             Text(if (vm.isRegister) "Crear Cuenta" else "Entrar")
         }

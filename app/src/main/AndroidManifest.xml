@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
@@ -11,12 +15,11 @@
         android:label="Escuela Marcela Paz"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Colegio">
+        android:theme="@style/Theme.EscuelaEscritoraMarcelaPaz">
 
         <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.Colegio">
+            android:name="com.example.MPAZ.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -24,19 +27,16 @@
         </activity>
 
         <activity
-            android:name=".UsuarioActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Colegio" />
+            android:name="com.example.MPAZ.UsuarioActivity"
+            android:exported="false" />
 
         <activity
-            android:name=".AdminActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Colegio" />
+            android:name="com.example.MPAZ.AdminActivity"
+            android:exported="false" />
 
         <activity
-            android:name=".VerEspaciosActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Colegio" />
+            android:name="com.example.MPAZ.VerEspaciosActivity"
+            android:exported="false" />
 
     </application>
 

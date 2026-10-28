@@ -96,9 +96,8 @@ object BaseDatosSimulada {
         } else {
             usuarios.addAll(
                 listOf(
-                    Usuario("admin@colegio.cl", "admin123", "ADMIN", true),
-                    Usuario("utp@colegio.cl", "utp123", "ADMIN", false),
-                    Usuario("docente@colegio.cl", "docente123", "DOCENTE", true)
+                    Usuario("admin@mpaz.cl", "admin123", "ADMIN", true),
+                    Usuario("docente@mpaz.cl", "docente123", "DOCENTE", true)
                 )
             )
             guardarUsuarios(context)

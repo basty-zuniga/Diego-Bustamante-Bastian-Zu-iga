@@ -1,4 +1,4 @@
-package com.example.colegio
+package com.example.MPAZ
 
 import android.app.Activity
 import android.os.Bundle
@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.example.MPAZ.ui.theme.EscuelaEscritoraMarcelaPazTheme
 import com.example.colegio.data.ReservaRepository
 import com.example.colegio.model.EstadoPuesto
 
@@ -20,7 +21,11 @@ class VerEspaciosActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val repo = ReservaRepository(applicationContext)
-        setContent { MaterialTheme { PantallaEspacios(repo) } }
+        setContent {
+            EscuelaEscritoraMarcelaPazTheme {
+                PantallaEspacios(repo)
+            }
+        }
     }
 }
 

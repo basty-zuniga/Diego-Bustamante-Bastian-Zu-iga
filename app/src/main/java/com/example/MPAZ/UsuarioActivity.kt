@@ -34,20 +34,24 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
-import com.example.MPAZ.Data.ReservaRepository
-import com.example.MPAZ.Model.EstadoPuesto
-import com.example.MPAZ.ui.theme.ColegioTheme
-import com.example.MPAZ.Utils.RecursosNativosHelper
-import com.example.MPAZ.ViewModel.ReservaViewModel
+import com.example.MPAZ.ui.theme.EscuelaEscritoraMarcelaPazTheme
+import com.example.colegio.data.ReservaRepository
+import com.example.colegio.model.EstadoPuesto
+import com.example.colegio.utils.RecursosNativosHelper
+import com.example.colegio.viewmodel.ReservaViewModel
 
 class UsuarioActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val viewModel = ReservaViewModel(ReservaRepository(applicationContext))
+
+        val viewModel = ReservaViewModel(
+            ReservaRepository(applicationContext)
+        )
+
         setContent {
-            ColegioTheme {
-                PantallaUsuario(viewModel)
+            EscuelaEscritoraMarcelaPazTheme {
+                PantallaUsuario(viewModel = viewModel)
             }
         }
     }
@@ -243,7 +247,7 @@ fun PantallaUsuario(viewModel: ReservaViewModel) {
                     DropdownMenu(expanded = menuPuestoAbierto, onDismissRequest = { menuPuestoAbierto = false }) {
                         puestos.forEachIndexed { index, puesto ->
                             DropdownMenuItem(
-                                text = { Text("${puesto.nombre} (${puesto.ubicacion})") },
+                                text = { Text("${puesto.nombre} • ${puesto.ubicacion}") },
                                 onClick = { viewModel.onPuestoSelected(index); menuPuestoAbierto = false }
                             )
                         }
@@ -410,7 +414,7 @@ fun PantallaUsuario(viewModel: ReservaViewModel) {
                         if (sol.esPrioritaria) {
                             Text("🚨 PRIORITARIA / EXCEPCIÓN", color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.labelLarge)
                         }
-                        Text("${sol.puesto.nombre} - ${sol.modulo.rangoTexto}", style = MaterialTheme.typography.titleSmall)
+                        Text("${sol.puesto.nombre} • ${sol.modulo.rangoTexto}", style = MaterialTheme.typography.titleSmall)
                         Text("📅 Fecha: ${sol.fechaReserva}")
                         Text("Actividad: ${sol.motivoUso}")
                         if (sol.tieneFotoAdjunta) Text("📷 Incluye fotografía")

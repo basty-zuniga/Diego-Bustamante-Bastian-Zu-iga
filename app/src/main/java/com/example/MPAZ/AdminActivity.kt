@@ -1,4 +1,4 @@
-package com.example.colegio
+package com.example.MPAZ
 
 import android.app.Activity
 import android.content.Intent
@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.example.MPAZ.ui.theme.EscuelaEscritoraMarcelaPazTheme
 import com.example.colegio.data.ReservaRepository
 import com.example.colegio.model.EstadoSolicitud
 import com.example.colegio.utils.RecursosNativosHelper
@@ -28,7 +29,11 @@ class AdminActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val vm = ReservaViewModel(ReservaRepository(applicationContext))
-        setContent { MaterialTheme { PantallaAdmin(vm) } }
+        setContent {
+            EscuelaEscritoraMarcelaPazTheme {
+                PantallaAdmin(vm)
+            }
+        }
     }
 }
 
@@ -95,8 +100,8 @@ fun PantallaAdmin(vm: ReservaViewModel) {
                             Text("⚠️ Flexibilidad: ${s.motivoFlexibilidad}")
                         }
 
-                        vm.obtenerFoto(s.id)?.let {
-                            Image(bitmap = it.asImageBitmap(), contentDescription = null, modifier = Modifier.size(100.dp))
+                        vm.obtenerFoto(s.id)?.let { bmp ->
+                            Image(bitmap = bmp.asImageBitmap(), contentDescription = null, modifier = Modifier.size(100.dp))
                         }
 
                         Text("Estado: ${s.estado}")
